@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>Đăng ký</title>
+        <link rel="stylesheet" href="page.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <form id="registerForm">
+            <h2> Đăng ký</h2>
+            <input type="text" placeholder="Tên người dùng" id="name" required />
+            <input type="text" placeholder="Tên đăng nhập" id="username" required />
+            <input type="password" placeholder="Mật khẩu" id="password" required/> 
+            <input type="password" placeholder="Xác nhận mật khẩu" id="confirmPassword" required/> 
+            <button type="submit">Đăng ký</button>
+            &nbsp; <a href="login.html">Tới trang đăng nhập</a>
+        </form>
+        <script>
+            document.getElementById("registerForm").addEventListener("submit", function(event){
+                event.preventDefault();
+                var name = document.getElementById("name").value;
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+                var confirmPassword = document.getElementById("confirmPassword").value;
+
+                if(password !== confirmPassword){
+                    alert("Mật khẩu không trùng nhau");
+                    return;
+                }
+                const user = {
+                    name: name,
+                    username: username,
+                    password: password,
+                };
+                localStorage.setItem(username, JSON.stringify(user));
+                alert("Đăng ký thành công! Hãy đăng nhập.");
+                window.location.href = "login.html";
+            });
+        </script>
+    </body>
+</html>

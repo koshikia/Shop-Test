@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <title>Val Shop</title>
+        <link rel="stylesheet" href="maincs.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&display=swap" rel="stylesheet">
+    </head>
+    <body style="background-color: rgb(27, 27, 27);">
+        <div class ="header">
+            <div class="container">
+                <div class="navbar">
+                    <div class="logo">
+                        <a href="main.html"><img src="ảnh/Valorant_logo_-_pink_color_version.svg.png" width="110px"></a>
+                    </div>
+                    <nav>
+                        <ul id="MenuItems">
+                            <li><a href="main.html">Trang chủ</a></li>
+                             <li><a href="index.html">Toàn bộ sản phẩm</a></li>
+                             <li><a href="">Thông tin liên hệ</a></li>
+                             <li id="username"></li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <h1>Khám phá các vật phẩm mới nhất!</h1>
+                        <a href="index.html" class="btn"> Tìm hiểu ngay</a></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="section-home">
+            <h2>Các bộ sưu tập bán chạy nhất: </h2>
+            <div class ="small-container">
+                <div class = "col-2">
+                <h2>1. Araxys </h2>
+                <h2>2. Prelude to Chaos </h2>
+                <h2>3. Reaver 2.0 </h2>
+                </div>
+        </section>
+        </div>
+        <!-- silder auto -->
+        <div class="slider">
+            <div class="list">
+                <div class="item">
+                    <a href="./bundle/bundle1.html"><img src="ảnh/Bundle_Araxys.webp"></a>
+                </div>
+                <div class="item">
+                    <a href="./bundle/bundle2.html"><img src="ảnh/Bundle_Prelude_to_Chaos.webp"></a>
+                </div>
+                <div class="item">
+                    <a href="./bundle/bundle3.html"><img src="ảnh/Bundle_Reaver_EP_5.webp"></a>
+                </div>
+            </div>
+            <div class="buttons">
+                <button id="prev"> < </button>
+                <button id="next"> > </button>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class ="footer">
+        <div class="container">
+            <div class="row">
+                <div class="footer-col-1">
+                    <h3>Thông tin</h3>
+                    <p>Họ và tên: Nguyễn Đức Anh</p>
+                    <p>Mã sinh viên: 2221050456 </p>
+                    <p>Nhóm môn học: 11 </p>
+                </div>
+                <div class="footer-col-2">
+                    <img src="ảnh/Valorant_logo_-_pink_color_version.svg.png">
+                    <p>Đây chỉ là mô hình không phải vũ khí thực sự!</p>
+                </div>            
+            </div>
+         <!-----------------------------------js----------------------------------------------->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const usernameElement = document.getElementById("username");
+            const user = localStorage.getItem("user");
+
+            if (user) {
+                const parsedUser = JSON.parse(user);
+                usernameElement.innerHTML = `
+                    <div class="user-menu">
+                        <a>${parsedUser.username}</a>
+                        <button id="logoutBtn" class="logout-btn">Đăng xuất</button>
+                    </div>
+                `;
+                document.getElementById("logoutBtn").addEventListener("click", function () {
+                    localStorage.removeItem("user");
+                    alert("Đã đăng xuất thành công!");
+                    location.reload();
+                });
+            } else {
+                usernameElement.innerHTML = `<a href="./login,signup/login.html">Đăng nhập</a>`;
+            }});
+        let list = document.querySelector('.slider .list');
+        let items = document.querySelectorAll('.slider .list .item');
+        let dots = document.querySelectorAll('.silder .dots li');
+        let prev = document.getElementById('prev');
+        let next = document.getElementById('next');
+        let active = 0;
+        let lengthItems = items.length - 1;
+        
+        next.onclick = function(){
+            if(active + 1 > lengthItems){
+                active = 0;
+            }else{
+                active = active + 1;
+            }
+            reloadSlider();
+        }
+        prev.onclick = function(){
+            if(active - 1 < 0){
+                active = lengthItems;
+            }else{
+                active = active - 1;
+            }
+            reloadSlider();
+        }
+        let refreshSlider = setInterval(() => {next.click(), 5000}, 5000);
+        function reloadSlider(){
+            let checkLeft = items[active].offsetLeft;
+            list.style.left = -checkLeft + 'px';
+            clearInterval(refreshSlider);
+            refreshSlider = setInterval(() => {next.click()}, 5000);
+        }
+    </script>
+    </body>
+</html>
